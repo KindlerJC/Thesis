@@ -1,3 +1,6 @@
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -5,20 +8,21 @@ import static org.junit.jupiter.api.Assertions.*;
 class AdjacencyListTest
 {
 
-    static AdjacencyList al;
+    private static AdjacencyList al;
     static Iterator<Integer> iter;
-    @org.junit.jupiter.api.BeforeEach
+
+    @BeforeEach
     void setUp()
     {
         al = new AdjacencyList(10);
     }
 
-    @org.junit.jupiter.api.AfterEach
-    void tearDown()
-    {
-    }
+//    @org.junit.jupiter.api.AfterEach
+//    void tearDown()
+//    {
+//    }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void add()
     {
         al.add(0,1);
@@ -34,7 +38,7 @@ class AdjacencyListTest
         assertEquals(expected, actual);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getIterator()
     {
     }

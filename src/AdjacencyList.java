@@ -8,7 +8,9 @@ public class AdjacencyList
 
     public AdjacencyList(int size)
     {
-        adjList  = new ArrayList<LinkedList<Integer>>(size);
+        adjList  = new ArrayList<>(size);
+        for (int i = 0; i < size; i++)
+            adjList.add(new LinkedList<>());
     }
 
     public void add(int a, int b)
