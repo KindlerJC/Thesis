@@ -41,5 +41,8 @@ class AdjacencyListTest
     @Test
     void getIterator()
     {
+        for (int i = 0; i < 10; i++)
+            al.add(i, i+1);
+
     }
 }
