@@ -5,9 +5,11 @@ import java.util.LinkedList;
 public class AdjacencyList
 {
     private ArrayList<LinkedList<Integer>> adjList;
+    private int size;
 
     public AdjacencyList(int size)
     {
+        this.size = size;
         adjList  = new ArrayList<>(size);
         for (int i = 0; i < size; i++)
             adjList.add(new LinkedList<>());
@@ -24,4 +26,8 @@ public class AdjacencyList
         return adjList.get(index).iterator();
     }
 
+    public int getSize()
+    {
+        return size;
+    }
 }

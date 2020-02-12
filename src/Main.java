@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Main
@@ -58,4 +59,33 @@ public class Main
         edgeFile.close();
         return adjList;
     }
+
+    private static int[] makeParentArray(AdjacencyList adjList, int root)
+    {
+        int[] parents = new int[adjList.getSize()];
+        parents[root] = -1;
+        var queue = new LinkedList<Integer>();
+
+        int parent = root;
+        queue.add(parent);
+        do {
+            var iter = adjList.getIterator(parent);
+            while (iter.hasNext())
+            {
+                int child = iter.next();
+                parents[child] = root;
+                queue.addLast(child);
+            }
+        } while (!queue.isEmpty());
+
+
+        return null;
+    }
+
+    private static int[] mpa(int[] parents, int current)
+    {
+        return null;
+    }
+
+
 }
