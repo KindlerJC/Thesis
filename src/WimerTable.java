@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class WimerTable
 {
     public static final int BAD_CASE = -1;
+    public Vector initialVector;
 
     private boolean isMax;
     private ArrayList<LinkedList<Composition>> table;
@@ -23,8 +24,14 @@ public class WimerTable
         String max = input.nextLine(); //First line determines max or min
         isMax = max.toLowerCase().contains("max");
         int classes = input.nextInt();
-        table = new ArrayList<>(classes);
+        initialVector = new Vector(classes);
 
+        for (int i = 0; i < classes; i++)
+        {
+            int size = input.nextInt();
+            initialVector.list[i] = new VectorEntry(size);
+        }
+        table = new ArrayList<>(classes);
         for (int i = 0; i < classes; i++)
             table.add(new LinkedList<>());
 

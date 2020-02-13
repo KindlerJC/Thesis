@@ -6,9 +6,11 @@ import java.util.Scanner;
 
 public class Main
 {
+    private static Vector[] tree;
     public static void main(String[] args)
     {
         String fileName;
+        String wimerFileName = null;
         Scanner keyboard = new Scanner(System.in);
         if (args.length == 0)
         {
@@ -17,14 +19,21 @@ public class Main
         }
         else {
             fileName = args[0];
+            wimerFileName = args[1];
         }
         keyboard.close();
         AdjacencyList adjList = makeAdjacencyList(fileName);
+        var wimerTable = new WimerTable(new File(wimerFileName));
+        var initialVector = wimerTable.initialVector;
+        tree = new Vector[initialVector.list.length];
+        for (int i = 0; i < tree.length; i++)
+            tree[i] = new Vector(initialVector);
+        
     }
 
     /**
      * Creates an AdjacencyList from the file input.
-     * File format: First integer is the number of nodes in the tree.
+     * File format: First integer is the number of nodes in the tree
      * Following the size, there should be pairs of integers to indicate edges.
      * All numbers should be separated with whitespace.
      * Tree will be zero-indexed, so the max node value is size - 1.
@@ -85,6 +94,8 @@ public class Main
 
         return parents;
     }
+
+
 
     private static int[] mpa(int[] parents, int current)
     {
