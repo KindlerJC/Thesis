@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -65,21 +66,24 @@ public class Main
         int[] parents = new int[adjList.getSize()];
         parents[root] = -1;
         var queue = new LinkedList<Integer>();
+        var visited = new HashSet<Integer>();
 
-        int parent = root;
-        queue.add(parent);
+        queue.add(root);
         do {
+            int parent = queue.getFirst();
             var iter = adjList.getIterator(parent);
             while (iter.hasNext())
             {
                 int child = iter.next();
-                parents[child] = root;
+                if (visited.contains(child))
+                    continue;
+                visited.add(child);
+                parents[child] = parent;
                 queue.addLast(child);
             }
         } while (!queue.isEmpty());
 
-
-        return null;
+        return parents;
     }
 
     private static int[] mpa(int[] parents, int current)

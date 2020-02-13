@@ -23,6 +23,8 @@ public class AdjacencyList
 
     public Iterator<Integer> getIterator(int index)
     {
+        if (index < 0 || index >= size)
+
         return adjList.get(index).iterator();
     }
 
