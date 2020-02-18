@@ -9,39 +9,28 @@ public class AdjacencyList
 {
     private ArrayList<LinkedList<Integer>> adjList;
     private int size;
+
     /**
      * Creates an AdjacencyList from the file input.
      * File format: First integer is the number of nodes in the tree
      * Following the size, there should be pairs of integers to indicate edges.
      * All numbers should be separated with whitespace.
      * Tree will be zero-indexed, so the max node value is size - 1.
+     *
      * @param fileName
      * @return
      */
     public AdjacencyList(String fileName)
     {
-        File inFile = new File(fileName);
-        Scanner edgeFile = null;
-
-        try
-        {
-            edgeFile = new Scanner(inFile);
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-            System.exit(-1);
-        }
-
+        Scanner edgeFile = getScanner(fileName);
         size = edgeFile.nextInt();
-        adjList  = new ArrayList<>(size);
-        for (int i = 0; i < size; i++)
-        {
+        adjList = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
             adjList.add(i, new LinkedList<>());
         }
 
         int a, b;
-        while(edgeFile.hasNextInt())
+        while (edgeFile.hasNextInt())
         {
             a = edgeFile.nextInt();
             b = edgeFile.nextInt();
@@ -52,6 +41,20 @@ public class AdjacencyList
 
     }
 
+    private Scanner getScanner(String fileName)
+    {
+        File inFile = new File(fileName);
+        Scanner edgeFile = null;
+
+        try {
+            edgeFile = new Scanner(inFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+        return edgeFile;
+    }
+
     public void add(int a, int b)
     {
         adjList.get(a).addFirst(b);
@@ -60,12 +63,38 @@ public class AdjacencyList
 
     public Iterator<Integer> getIterator(int index)
     {
-
         return adjList.get(index).iterator();
     }
 
     public int getSize()
     {
         return size;
+    }
+
+    public int[] getParentArray(int root)
+    {
+        int[] parents = new int[size];
+        parents[root] = -1;
+        var queue = new LinkedList<Integer>();
+        var visited = new boolean[size];
+        queue.add(root);
+        int parent, child;
+        do {
+            parent = queue.getFirst();
+            var iter = getIterator(parent);
+            while (iter.hasNext())
+            {
+                child = iter.next();
+                if (!visited[child])
+                {
+                    visited[child] = true;
+                    parents[child] = parent;
+                    queue.addLast(child);
+                }
+            }
+        }
+        while (!queue.isEmpty());
+
+        return parents;
     }
 }
