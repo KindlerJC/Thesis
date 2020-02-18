@@ -74,13 +74,16 @@ public class AdjacencyList
     public int[] getParentArray(int root)
     {
         int[] parents = new int[size];
-        parents[root] = -1;
         var queue = new LinkedList<Integer>();
         var visited = new boolean[size];
+
+        visited[0] = true;
+        parents[root] = -1;
         queue.add(root);
+
         int parent, child;
         do {
-            parent = queue.getFirst();
+            parent = queue.pollFirst();
             var iter = getIterator(parent);
             while (iter.hasNext())
             {

@@ -52,6 +52,13 @@ class AdjacencyListTest
     {
         for (int i = 0; i < 10; i++)
             al.add(i, i+1);
+    }
 
+    @Test
+    void getParentArray()
+    {
+        var expected = new int[]{-1, 0, 0, 1, 1, 2, 2};
+        var actual = al.getParentArray(0);
+        assertArrayEquals(expected, actual);
     }
 }

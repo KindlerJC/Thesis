@@ -5,7 +5,7 @@ public class Main
     {
         var adjList = new AdjacencyList(args[0]);
         var wimerTable = new WimerTable(args[1]);
-        var initialVector = wimerTable.initialVector;
+        var initialVector = wimerTable.getInitialVector();
         tree = new Vector[initialVector.list.length];
         for (int i = 0; i < tree.length; i++)
             tree[i] = new Vector(initialVector);
