@@ -77,7 +77,7 @@ public class AdjacencyList
         var queue = new LinkedList<Integer>();
         var visited = new boolean[size];
 
-        visited[0] = true;
+        visited[root] = true;
         parents[root] = -1;
         queue.add(root);
 

@@ -24,6 +24,7 @@ public class Composition
     {
         return parent;
     }
+
     public int getChild()
     {
         return child;

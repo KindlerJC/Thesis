@@ -19,13 +19,12 @@ public class WimerTable
         isMax = max.toLowerCase().contains("max");
 
         int classes = input.nextInt();
-        initialVector = new Vector(classes);
-
+        var vectArr = new int[classes];
         for (int i = 0; i < classes; i++)
         {
-            int size = input.nextInt();
-            initialVector.list[i] = new VectorEntry(size);
+            vectArr[i] = input.nextInt();
         }
+        initialVector = new Vector(classes);
         table = new ArrayList<>(classes);
         for (int i = 0; i < classes; i++)
             table.add(new LinkedList<>());
@@ -62,9 +61,20 @@ public class WimerTable
 
     public Vector compose(Vector parent, Vector child)
     {
-        for (var caseList : table)
+        var parentList = parent.getList();
+        var childList = child.getList();
+        int len = parentList.length;
+
+        for (int i = 0; i < len; i++)
         {
-            
+            var iter = table.get(i).iterator();
+            Composition into;
+
+            while (iter.hasNext())
+            {
+                into = iter.next();
+
+            }
         }
         return null;
     }
