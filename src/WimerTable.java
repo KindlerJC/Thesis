@@ -12,9 +12,10 @@ public class WimerTable
     private boolean isMax;
     private ArrayList<LinkedList<Composition>> table;
 
-    public WimerTable(File inFile)
+    public WimerTable(String fileName)
     {
         Scanner input = null;
+        File inFile = new File(fileName);
         try {
             input = new Scanner(inFile);
         } catch (FileNotFoundException e) {

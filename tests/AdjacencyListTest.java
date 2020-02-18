@@ -10,11 +10,12 @@ class AdjacencyListTest
 
     private static AdjacencyList al;
     static Iterator<Integer> iter;
+    private final String fileName = "tests/edgelist1";
 
     @BeforeEach
     void setUp()
     {
-        al = new AdjacencyList(10);
+        al = new AdjacencyList(fileName);
     }
 
 //    @org.junit.jupiter.api.AfterEach
@@ -23,8 +24,16 @@ class AdjacencyListTest
 //    }
 
     @Test
+    void constructor()
+    {
+        assertNotNull(al);
+
+    }
+
+    @Test
     void add()
     {
+
         al.add(0,1);
         iter = al.getIterator(0);
         int expected = 1;
