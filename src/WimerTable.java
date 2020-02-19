@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -10,7 +9,7 @@ public class WimerTable
     private Vector initialVector;
 
     private boolean isMax;
-    private ArrayList<LinkedList<Composition>> table;
+    private LinkedList<Composition>[] table;
 
     public WimerTable(String fileName)
     {
@@ -24,19 +23,21 @@ public class WimerTable
         {
             vectArr[i] = input.nextInt();
         }
-        initialVector = new Vector(classes);
-        table = new ArrayList<>(classes);
+        initialVector = new Vector(vectArr);
+        table = new LinkedList[classes];
         for (int i = 0; i < classes; i++)
-            table.add(new LinkedList<>());
+            table[i] = new LinkedList<>();
 
         for (int i = 0; i < classes; i++) //rows of table, parent case
         {
             for (int j = 0; j < classes; j++) //columns of table, child case
             {
                 int compCase = input.nextInt();
-                var row = table.get(compCase);
-                var comp = new Composition(i, j);
-                row.add(comp);
+                if (compCase != -1) {
+                    var row = table[compCase];
+                    var comp = new Composition(i, j);
+                    row.add(comp);
+                }
             }
         }
     }
@@ -67,12 +68,13 @@ public class WimerTable
 
         for (int i = 0; i < len; i++)
         {
-            var iter = table.get(i).iterator();
+            var iter = table[i].iterator();
             Composition into;
 
             while (iter.hasNext())
             {
                 into = iter.next();
+                //TODO Work out the logic of composing vectorsv
 
             }
         }
