@@ -33,7 +33,7 @@ class AdjacencyListTest
     @Test
     void add()
     {
-
+        al = new AdjacencyList(2);
         al.add(0,1);
         iter = al.getIterator(0);
         int expected = 1;
@@ -50,8 +50,7 @@ class AdjacencyListTest
     @Test
     void getIterator()
     {
-        for (int i = 0; i < 10; i++)
-            al.add(i, i+1);
+
     }
 
     @Test

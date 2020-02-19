@@ -1,13 +1,12 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
 
 public class AdjacencyList
 {
-    private ArrayList<LinkedList<Integer>> adjList;
+    private LinkedList<Integer>[] adjList;
     private int size;
 
     /**
@@ -24,9 +23,9 @@ public class AdjacencyList
     {
         Scanner edgeFile = getScanner(fileName);
         size = edgeFile.nextInt();
-        adjList = new ArrayList<>(size);
+        adjList = new LinkedList[size];
         for (int i = 0; i < size; i++) {
-            adjList.add(i, new LinkedList<>());
+            adjList[i] = new LinkedList<>();
         }
 
         int a, b;
@@ -41,6 +40,13 @@ public class AdjacencyList
 
     }
 
+    public AdjacencyList(int size)
+    {
+        this.size = size;
+        adjList = new LinkedList[size];
+        for (int i = 0; i < size; i++)
+            adjList[i] = new LinkedList<>();
+    }
     private Scanner getScanner(String fileName)
     {
         File inFile = new File(fileName);
@@ -57,13 +63,13 @@ public class AdjacencyList
 
     public void add(int a, int b)
     {
-        adjList.get(a).addFirst(b);
-        adjList.get(b).addFirst(a);
+        adjList[a].addFirst(b);
+        adjList[b].addFirst(a);
     }
 
     public Iterator<Integer> getIterator(int index)
     {
-        return adjList.get(index).iterator();
+        return adjList[index].iterator();
     }
 
     public int getSize()

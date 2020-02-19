@@ -4,9 +4,10 @@ public class Vector
     private Vector left;
     private Vector right;
 
-    public Vector(int size)
+    public Vector(Vector left, Vector right)
     {
-        list = new VectorEntry[size];
+        this.left = left;
+        this.right = right;
     }
 
     public Vector(Vector initial)
