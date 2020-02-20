@@ -21,7 +21,7 @@ class WimerTableTest
         var iv = wimerTable.getInitialVector().getList();
         var actual = new int[3];
         for (int i = 0; i < iv.length; i++)
-            actual[i] = iv[i].size;
+            actual[i] = iv[i].getSize();
         assertArrayEquals(expected, actual);
     }
 

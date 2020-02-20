@@ -47,11 +47,11 @@ class AdjacencyListTest
         assertEquals(expected, actual);
     }
 
-    @Test
-    void getIterator()
-    {
-
-    }
+//    @Test
+//    void getIterator()
+//    {
+//
+//    }
 
     @Test
     void getParentArray()

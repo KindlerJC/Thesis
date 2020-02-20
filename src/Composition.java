@@ -20,6 +20,10 @@ public class Composition
         return parent == other.parent && child == other.child;
     }
 
+    public boolean equals(int otherParent, int otherChild)
+    {
+        return parent == otherParent && child == otherChild;
+    }
     public int getParent()
     {
         return parent;

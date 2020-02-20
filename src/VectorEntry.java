@@ -1,13 +1,22 @@
 public class VectorEntry
 {
     public static final int BAD_CASE = -1;
-    public int size;
-    private int parentComp;
-    private int childComp;
 
-    public VectorEntry(int size)
+    private int size;
+    private Composition entry;
+    private Composition prev;
+
+    public VectorEntry(int size, Composition entry, Composition prev)
     {
         this.size = size;
+        this.entry = entry;
+        this.prev = prev;
     }
+
+    public int getSize()
+    {
+        return size;
+    }
+
 
 }

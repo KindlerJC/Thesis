@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class WimerTable
 {
+    //TODO: Have input provide acceptable end cases
     public static final int BAD_CASE = -1;
     private Vector initialVector;
 
@@ -41,6 +42,8 @@ public class WimerTable
                 }
             }
         }
+
+        input.close();
     }
 
     private Scanner getScanner(String fileName)
@@ -65,17 +68,24 @@ public class WimerTable
     {
         var parentList = parent.getList();
         var childList = child.getList();
-        int len = parentList.length;
+        Iterator<Composition> iter;
+        int caseA, caseB;
+        Composition into;
 
-        for (int i = 0; i < len; i++)
+        for (int i = 0; i < parentList.length; i++)
         {
-            var iter = table[i].iterator();
-            Composition into;
-
+            iter = table[i].iterator();
+            caseA = parentList[i].getSize();
+            caseB = childList[i].getSize();
             while (iter.hasNext())
             {
                 into = iter.next();
-                //TODO Work out the logic of composing vectorsv
+                if (into.equals(caseA, caseB))
+                {
+//                    int caseSize =
+//                    if(into.g)
+                }
+
 
             }
         }

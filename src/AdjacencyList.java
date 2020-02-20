@@ -88,7 +88,8 @@ public class AdjacencyList
         queue.add(root);
 
         int parent, child;
-        do {
+        while (!queue.isEmpty())
+        {
             parent = queue.pollFirst();
             var iter = getIterator(parent);
             while (iter.hasNext())
@@ -102,7 +103,6 @@ public class AdjacencyList
                 }
             }
         }
-        while (!queue.isEmpty());
 
         return parents;
     }
