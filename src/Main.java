@@ -5,9 +5,16 @@ public class Main
     {
         var adjList = new AdjacencyList(args[0]);
         var wimerTable = new WimerTable(args[1]);
-        var initialVector = wimerTable.getInitialVector();
+        Vector initialVector = wimerTable.getInitialVector();
         for (int i = 0; i < tree.length; i++)
             tree[i] = new Vector(initialVector);
+
+        var parentArray = adjList.getParentArray(0);
+        for (int i = parentArray.length - 1; i >= 0; i--)
+        {
+
+        }
+
     }
 
 }

@@ -10,6 +10,13 @@ public class Vector
         this.right = right;
     }
 
+    public Vector(VectorEntry[] list, Vector left, Vector right)
+    {
+        this.list = list;
+        this.left = left;
+        this.right = right;
+    }
+
     public Vector(Vector initial)
     {
         list = initial.list.clone();

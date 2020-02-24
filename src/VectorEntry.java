@@ -4,18 +4,28 @@ public class VectorEntry
 
     private int size;
     private Composition entry;
-    private Composition prev;
+    private VectorEntry prev;
 
-    public VectorEntry(int size, Composition entry, Composition prev)
+    public VectorEntry(int size)
+    {
+        this.size = size;
+    }
+
+    public VectorEntry(int size, Composition entry, VectorEntry other)
     {
         this.size = size;
         this.entry = entry;
-        this.prev = prev;
+        prev = other.prev;
     }
 
     public int getSize()
     {
         return size;
+    }
+
+    public Composition getComp()
+    {
+        return entry;
     }
 
 
