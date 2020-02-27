@@ -28,5 +28,11 @@ public class VectorEntry
         return entry;
     }
 
+    @Override
+    public String toString()
+    {
+        return "" + size;
+    }
+
 
 }

@@ -35,7 +35,7 @@ public class WimerTable
             for (int j = 0; j < classes; j++) //columns of table, child case
             {
                 int compCase = input.nextInt();
-                if (compCase != -1) {
+                if (compCase != BAD_CASE) {
                     var row = table[compCase];
                     var comp = new Composition(i, j);
                     row.add(comp);
@@ -80,16 +80,17 @@ public class WimerTable
         for (int i = 0; i < parentList.length; i++) // i = case #, index in vectorList
         {
             iter = table[i].iterator();
-
             bestTotal = isMax ? Integer.MIN_VALUE : Integer.MAX_VALUE;
 
             while (iter.hasNext()) // Iterate through list of possible compositions
             {
                 into = iter.next();
-                parentSize = parentList[i].getSize();
-                childSize = childList[i].getSize();
+                int a = into.getParent();
+                int b = into.getChild();
+                parentSize = parentList[a].getSize();
+                childSize = childList[b].getSize();
 
-                if (parentSize == -1 || childSize == -1)
+                if (parentSize == BAD_CASE || childSize == BAD_CASE)
                     continue;
 
                 totalSize = parentSize + childSize;
@@ -102,7 +103,8 @@ public class WimerTable
 
             }
 
-            newList[i] = new VectorEntry(totalSize, bestComp, parentList[i]);
+            bestTotal = bestTotal == Integer.MAX_VALUE || bestTotal == Integer.MIN_VALUE ? -1 : bestTotal;
+            newList[i] = new VectorEntry(bestTotal, bestComp, parentList[i]);
 
         }
         return new Vector(newList, parent, child);

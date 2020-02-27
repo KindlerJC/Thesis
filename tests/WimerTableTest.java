@@ -1,8 +1,9 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class WimerTableTest
 {
@@ -54,11 +55,28 @@ class WimerTableTest
     }
 
 
-/*
+
     @Test
     void compose()
     {
+        var init = wimerTable.getInitialVector();
+        var a = new Vector(init);
+        var b = new Vector(init);
+
+        var composition = wimerTable.compose(a, b);
+        var actual = composition.getList();
+        System.out.println(Arrays.toString(actual));
+
+        assertEquals(1, actual[0].getSize());
+        assertEquals(1, actual[1].getSize());
+        assertEquals(-1, actual[2].getSize());
+
+        assertTrue(actual[0].getComp().equals(0, 2));
+        assertTrue(actual[1].getComp().equals(2, 0));
+//        assertTrue(actual[2].getComp().equals(2, 1));
+
+
     }
 
- */
+
 }
