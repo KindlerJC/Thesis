@@ -11,6 +11,7 @@ public class WimerTable
     private Vector initialVector;
 
     private boolean isMax;
+    private int validClasses;
     private LinkedList<Composition>[] table;
 
     public WimerTable(String fileName)
@@ -19,7 +20,8 @@ public class WimerTable
         String max = input.nextLine(); //First line determines max or min
         isMax = max.toLowerCase().contains("max");
 
-        int classes = input.nextInt();
+        int classes = input.nextInt(); // Second line has number of classes
+        validClasses = input.nextInt(); // Third line has number of valid classes
         var vectArr = new int[classes];
         for (int i = 0; i < classes; i++)
         {
@@ -119,6 +121,11 @@ public class WimerTable
     public boolean isMax()
     {
         return isMax;
+    }
+
+    public int getValidClasses()
+    {
+        return validClasses;
     }
 
 }

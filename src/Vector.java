@@ -37,4 +37,25 @@ public class Vector
         return list;
     }
 
+    public VectorEntry getBest(boolean isMax, int validClasses)
+    {
+        VectorEntry current, best = null;
+        int bestSize = isMax ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+        int currentSize;
+        for (int i = 0; i < validClasses; i++)
+        {
+            current = list[i];
+            currentSize = current.getSize();
+            if (best == null || (isMax && currentSize > bestSize) || (!isMax && currentSize < bestSize))
+            {
+                best = current;
+                bestSize = currentSize;
+            }
+        }
+
+        return best;
+    }
+
+
+
 }
