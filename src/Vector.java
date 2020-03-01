@@ -3,6 +3,7 @@ public class Vector
     private VectorEntry[] list;
     private Vector left;
     private Vector right;
+    private int label; //TODO Fully implement
 
     public Vector(Vector left, Vector right)
     {

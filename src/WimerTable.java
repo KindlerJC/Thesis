@@ -70,12 +70,11 @@ public class WimerTable
         var parentList = parent.getList();
         var childList = child.getList();
         var newList = new VectorEntry[parentList.length];
-
         Iterator<Composition> iter;
-        int totalSize = 0;
-        int bestTotal, parentSize, childSize;
+        int bestTotal, parentSize, childSize, totalSize = 0;
         Composition into;
         Composition bestComp = null;
+        int parentCase, childCase;
 
         for (int i = 0; i < parentList.length; i++) // i = case #, index in vectorList
         {
@@ -85,10 +84,12 @@ public class WimerTable
             while (iter.hasNext()) // Iterate through list of possible compositions
             {
                 into = iter.next();
-                int a = into.getParent();
-                int b = into.getChild();
-                parentSize = parentList[a].getSize();
-                childSize = childList[b].getSize();
+
+                parentCase = into.getParent();
+                childCase = into.getChild();
+
+                parentSize = parentList[parentCase].getSize();
+                childSize = childList[childCase].getSize();
 
                 if (parentSize == BAD_CASE || childSize == BAD_CASE)
                     continue;
@@ -113,6 +114,11 @@ public class WimerTable
     public Iterator<Composition> getIterator(int index)
     {
         return table[index].iterator();
+    }
+
+    public boolean isMax()
+    {
+        return isMax;
     }
 
 }

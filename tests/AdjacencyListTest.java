@@ -59,5 +59,21 @@ class AdjacencyListTest
         var expected = new int[]{-1, 0, 0, 1, 1, 2, 2};
         var actual = al.getParentArray(0);
         assertArrayEquals(expected, actual);
+
+        expected = new int[]{1, -1, 0, 1, 1, 2, 2};
+        actual = al.getParentArray(1);
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    void getTraversalOrder()
+    {
+        var expected = new int[] {3, 4, 5, 6, 1, 2, 0};
+        var actual = al.getTraversalOrder(0);
+        assertArrayEquals(expected, actual);
+
+        expected = new int[] {5, 6, 2, 0, 3, 4, 1};
+        actual = al.getTraversalOrder(1);
+        assertArrayEquals(expected, actual);
     }
 }

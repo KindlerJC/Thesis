@@ -1,13 +1,13 @@
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Iterator;
 import java.util.Scanner;
+import java.io.File;
 
 public class AdjacencyList
 {
-    private LinkedList<Integer>[] adjList;
     private int size;
+    private LinkedList<Integer>[] adjList;
 
     /**
      * Creates an AdjacencyList from the file input.
@@ -16,8 +16,7 @@ public class AdjacencyList
      * All numbers should be separated with whitespace.
      * Tree will be zero-indexed, so the max node value is size - 1.
      *
-     * @param fileName
-     * @return
+     * @param fileName Name of file with edgelist
      */
     public AdjacencyList(String fileName)
     {
@@ -47,6 +46,7 @@ public class AdjacencyList
         for (int i = 0; i < size; i++)
             adjList[i] = new LinkedList<>();
     }
+
     private Scanner getScanner(String fileName)
     {
         File inFile = new File(fileName);
@@ -105,5 +105,41 @@ public class AdjacencyList
         }
 
         return parents;
+    }
+
+    /**
+     * 
+     * @param root
+     * @return
+     */
+    public int[] getTraversalOrder(int root)
+    {
+        var queue = new LinkedList<Integer>();
+        var visited = new boolean[size];
+        var order = new int[size];
+
+        queue.add(root);
+        visited[root] = true;
+        int i = size - 1;
+        order[i--] = root;
+        int current;
+
+        while (!queue.isEmpty())
+        {
+            current = queue.pollFirst();
+            var iter = getIterator(current);
+            while (iter.hasNext())
+            {
+                current = iter.next();
+                if (!visited[current])
+                {
+                    visited[current] = true;
+                    order[i--] = current;
+                    queue.addLast(current);
+                }
+
+            }
+        }
+        return order;
     }
 }
