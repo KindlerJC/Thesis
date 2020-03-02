@@ -23,10 +23,11 @@ public class Main
         var order = adjList.getTraversalOrder(root);
 
         Vector a, b;
-        int parent;
+        int parent, current;
 
-        for (int i = 0, current = order[i]; i < order.length - 1; i++)
+        for (int i = 0; i < order.length - 1; i++)
         {
+            current = order[i];
             parent = parents[current];
             a = tree[parent];
             b = tree[current];

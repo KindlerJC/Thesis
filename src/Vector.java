@@ -1,5 +1,7 @@
 public class Vector
 {
+    public static final int BAD_COMP = -1;
+
     private VectorEntry[] list;
     private Vector left;
     private Vector right;
@@ -46,7 +48,7 @@ public class Vector
         {
             current = list[i];
             currentSize = current.getSize();
-            if (best == null || (isMax && currentSize > bestSize) || (!isMax && currentSize < bestSize))
+            if (best == null || ((isMax && currentSize > bestSize) || (!isMax && currentSize < bestSize) && currentSize != BAD_COMP))
             {
                 best = current;
                 bestSize = currentSize;

@@ -62,6 +62,7 @@ class WimerTableTest
         var init = wimerTable.getInitialVector();
         var a = new Vector(init);
         var b = new Vector(init);
+        var c = new Vector(init);
 
         var composition = wimerTable.compose(a, b);
         var actual = composition.getList();
@@ -73,7 +74,19 @@ class WimerTableTest
 
         assertTrue(actual[0].getComp().equals(0, 2));
         assertTrue(actual[1].getComp().equals(2, 0));
-//        assertTrue(actual[2].getComp().equals(2, 1));
+        assertTrue(actual[2].getComp().equals(2, 0));
+
+        var composition2 = wimerTable.compose(c, composition);
+        actual = composition2.getList();
+        System.out.println(Arrays.toString(actual));
+
+        assertEquals(2, actual[0].getSize());
+        assertEquals(1, actual[1].getSize());
+        assertEquals(1, actual[2].getSize());
+
+//        assertTrue(actual[0].getComp().equals(0, 2));
+//        assertTrue(actual[1].getComp().equals(2, 0));
+//        assertTrue(actual[2].getComp().equals(2, 0));
 
 
     }
