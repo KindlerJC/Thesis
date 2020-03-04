@@ -1,5 +1,4 @@
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest
 {
@@ -10,7 +9,7 @@ class MainTest
 
         for (int i = 0; i < 7; i++)
         {
-            var actual = Main.run(files, i);
+            var actual = Main.getFinalVector(files, i);
             assertEquals(2, actual.getSize());
         }
 

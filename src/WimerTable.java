@@ -21,7 +21,9 @@ public class WimerTable
         isMax = max.toLowerCase().contains("max");
 
         int classes = input.nextInt(); // Second line has number of classes
+        input.nextLine();
         validClasses = input.nextInt(); // Third line has number of valid classes
+        input.nextLine();
         var vectArr = new int[classes];
         for (int i = 0; i < classes; i++)
         {
