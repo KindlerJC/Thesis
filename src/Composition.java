@@ -2,9 +2,11 @@ public class Composition
 {
     private int parent;
     private int child;
+    private int caseNum;
 
-    public Composition(int parent, int child)
+    public Composition(int caseNum, int parent, int child)
     {
+        this.caseNum = caseNum;
         this.parent = parent;
         this.child = child;
     }
@@ -32,5 +34,10 @@ public class Composition
     public int getChild()
     {
         return child;
+    }
+
+    public int getCase()
+    {
+        return caseNum;
     }
 }

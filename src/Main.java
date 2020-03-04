@@ -4,14 +4,12 @@ public class Main
     private static Vector[] tree;
     public static void main(String[] args)
     {
-        var yeet = run(args);
+        var yeet = run(args, 0);
 
     }
 
-    public static VectorEntry run(String[] args)
+    public static VectorEntry run(String[] args, int root)
     {
-        int root = 0;
-
         var adjList = new AdjacencyList(args[0]);
         var wimerTable = new WimerTable(args[1]);
         Vector initialVector = wimerTable.getInitialVector();

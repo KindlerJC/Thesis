@@ -39,7 +39,7 @@ public class WimerTable
                 int compCase = input.nextInt();
                 if (compCase != BAD_CASE) {
                     var row = table[compCase];
-                    var comp = new Composition(i, j);
+                    var comp = new Composition(compCase, i, j);
                     row.add(comp);
                 }
             }
