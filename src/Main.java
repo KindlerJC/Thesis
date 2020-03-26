@@ -1,23 +1,35 @@
 public class Main
 {
     private static Vector[] tree;
-    private static AdjacencyList adjList;
-    private static WimerTable wimerTable;
+    public static AdjacencyList adjList;
+    public static WimerTable wimerTable;
+
+    static boolean isMax;
+    static int validClasses;
+
     public static void main(String[] args)
     {
-        var yeet = getFinalVector(args, 0);
+        makeTables(args);
+        isMax = wimerTable.isMax();
+        validClasses = wimerTable.getValidClasses();
+        var finalVector = getFinalVector(0);
+
 
 
     }
 
-    public static Vector getFinalVector(String[] args, int root)
+    public static void makeTables(String[] args)
     {
         adjList = new AdjacencyList(args[0]);
         wimerTable = new WimerTable(args[1]);
+    }
+
+    public static Vector getFinalVector(int root)
+    {
         Vector initialVector = wimerTable.getInitialVector();
         tree = new Vector[adjList.getSize()]; // TODO: Add case label to each VectorEntry
         for (int i = 0; i < tree.length; i++)
-            tree[i] = new Vector(initialVector);
+            tree[i] = new Vector(initialVector, i);
 
         var parents = adjList.getParentArray(root);
         var order = adjList.getTraversalOrder(root);
@@ -32,15 +44,24 @@ public class Main
             a = tree[parent];
             b = tree[current];
             tree[parent] = wimerTable.compose(a, b);
+            tree[parent].position = parent;
         }
 
         var result = tree[root];
         return result;
     }
 
-    public static void printSet()
+    public static void printSet(Vector initialVector, Vector finalVector)
     {
-            
+        var inVec = initialVector.getList();
+        VectorEntry best = finalVector.getBest(isMax, validClasses);
+        int currentCase = best.getCompCase();
+        if (inVec[currentCase].getSize() == 1)
+        {
+            System.out.println();
+        }
+
+
     }
 
 }

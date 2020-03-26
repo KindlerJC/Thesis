@@ -88,7 +88,6 @@ public class WimerTable
             while (iter.hasNext()) // Iterate through list of possible compositions
             {
                 into = iter.next();
-
                 parentCase = into.getParent();
                 childCase = into.getChild();
 
@@ -109,7 +108,7 @@ public class WimerTable
             }
 
             bestTotal = bestTotal == Integer.MAX_VALUE || bestTotal == Integer.MIN_VALUE ? -1 : bestTotal;
-            newList[i] = new VectorEntry(bestTotal, bestComp, parentList[i]);
+            newList[i] = new VectorEntry(bestTotal, bestComp);
 
         }
         return new Vector(newList, parent, child);

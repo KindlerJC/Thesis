@@ -60,9 +60,9 @@ class WimerTableTest
     void compose()
     {
         var init = wimerTable.getInitialVector();
-        var a = new Vector(init);
-        var b = new Vector(init);
-        var c = new Vector(init);
+        var a = new Vector(init, 0);
+        var b = new Vector(init, 1);
+        var c = new Vector(init, 2);
 
         var composition = wimerTable.compose(a, b);
         var actual = composition.getList();

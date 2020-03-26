@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Vector
 {
     public static final int BAD_COMP = -1;
@@ -5,8 +7,8 @@ public class Vector
     private VectorEntry[] list;
     private Vector left;
     private Vector right;
-    private int label; //TODO Fully implement
-    private static int[] initial;
+    public int position;
+//    private static int[] initial;
 
     public Vector(Vector left, Vector right)
     {
@@ -21,15 +23,15 @@ public class Vector
         this.right = right;
     }
 
-    public Vector(Vector initial)
+    public Vector(Vector initial, int position)
     {
         list = initial.list.clone();
+        this.position = position;
     }
 
     public Vector(int[] initialVector)
     {
         int size = initialVector.length;
-
         list = new VectorEntry[size];
         for (int i = 0; i < size; i++)
             list[i] = new VectorEntry(initialVector[i]);
@@ -41,10 +43,16 @@ public class Vector
         return list;
     }
 
-    public VectorEntry getBest(WimerTable algorithm)
+    public Vector getLeft() {
+        return left;
+    }
+
+    public Vector getRight() {
+        return right;
+    }
+
+    public VectorEntry getBest(boolean isMax, int validClasses)
     {
-        boolean isMax = algorithm.isMax();
-        int validClasses = algorithm.getValidClasses();
         VectorEntry current, best = null;
         int bestSize = isMax ? Integer.MIN_VALUE : Integer.MAX_VALUE;
         int currentSize;
@@ -60,6 +68,12 @@ public class Vector
         }
 
         return best;
+    }
+
+    @Override
+    public String toString()
+    {
+        return position + ": " + Arrays.toString(list);
     }
 
 
