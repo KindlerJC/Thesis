@@ -24,32 +24,15 @@ class MainTest
     {
         String[] files = new String[] {"tests/edgelist1", "tests/mindomset.txt"};
         Main.main(files);
-//        Main.makeTables(files);
-//        WimerTable wimerTable = Main.wimerTable;
-//        boolean isMax = wimerTable.isMax();
-//        int validClasses = wimerTable.getValidClasses();
-//
-//        var result = Main.getFinalVector(0);
-//        initialVector = wimerTable.getInitialVector();
-//
-//        printRec(result, result.getBest(isMax, validClasses).getCompCase());
-
 
     }
 
-//    void printRec(Vector ptr, int comp)
-//    {
-//        var currentComp = ptr.entryAt(comp);
-//        if (ptr.getLeft() == null)
-//        {
-//            var size = initialVector.entryAt(comp).getSize();
-//            if (size == 1)
-//                System.out.println(ptr.position + " is in the set.");
-//            return;
-//        }
-//
-//        printRec(ptr.getLeft(), currentComp.getComp().getParent());
-//        printRec(ptr.getRight(), currentComp.getComp().getChild());
-//    }
+    @Test
+    void minimal()
+    {
+        String[] files = new String[]{"tests/edgelist1", "tests/minimalDomSet"};
+        Main.main(files);
+
+    }
 
 }
