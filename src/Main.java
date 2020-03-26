@@ -6,13 +6,18 @@ public class Main
 
     static boolean isMax;
     static int validClasses;
+    static Vector initialVector;
 
     public static void main(String[] args)
     {
         makeTables(args);
         isMax = wimerTable.isMax();
         validClasses = wimerTable.getValidClasses();
+        initialVector = wimerTable.getInitialVector();
         var finalVector = getFinalVector(0);
+        var bestEntry = finalVector.getBest(isMax, validClasses);
+        System.out.println("Set size: " + bestEntry.getSize());
+        printRec(finalVector, bestEntry.getComp().getCase());
 
 
 
@@ -51,17 +56,19 @@ public class Main
         return result;
     }
 
-    public static void printSet(Vector initialVector, Vector finalVector)
+    static void printRec(Vector ptr, int comp)
     {
-        var inVec = initialVector.getList();
-        VectorEntry best = finalVector.getBest(isMax, validClasses);
-        int currentCase = best.getCompCase();
-        if (inVec[currentCase].getSize() == 1)
+        var currentComp = ptr.entryAt(comp);
+        if (ptr.getLeft() == null)
         {
-            System.out.println();
+            var size = initialVector.entryAt(comp).getSize();
+            if (size == 1)
+                System.out.println(ptr.position + " is in the set");
+            return;
         }
 
-
+        printRec(ptr.getLeft(), currentComp.getComp().getParent());
+        printRec(ptr.getRight(), currentComp.getComp().getChild());
     }
 
 }

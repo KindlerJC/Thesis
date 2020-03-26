@@ -51,6 +51,11 @@ public class Vector
         return right;
     }
 
+    public VectorEntry entryAt(int index)
+    {
+        return list[index];
+    }
+
     public VectorEntry getBest(boolean isMax, int validClasses)
     {
         VectorEntry current, best = null;
