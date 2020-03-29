@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class WimerTable
 {
-    //TODO: Have input provide acceptable end cases
     public static final int BAD_CASE = -1;
     private Vector initialVector;
 
@@ -26,27 +25,30 @@ public class WimerTable
         input.nextLine();
         var vectArr = new int[classes];
         for (int i = 0; i < classes; i++)
-        {
             vectArr[i] = input.nextInt();
-        }
+
         initialVector = new Vector(vectArr);
         table = new LinkedList[classes];
         for (int i = 0; i < classes; i++)
             table[i] = new LinkedList<>();
 
+        LinkedList<Composition> row;
+        Composition comp;
+        int compCase;
+
         for (int i = 0; i < classes; i++) //rows of table, parent case
         {
             for (int j = 0; j < classes; j++) //columns of table, child case
             {
-                int compCase = input.nextInt();
-                if (compCase != BAD_CASE) {
-                    var row = table[compCase];
-                    var comp = new Composition(compCase, i, j);
+                compCase = input.nextInt();
+                if (compCase != BAD_CASE)
+                {
+                    row = table[compCase];
+                    comp = new Composition(compCase, i, j);
                     row.add(comp);
                 }
             }
         }
-
         input.close();
     }
 
@@ -54,9 +56,11 @@ public class WimerTable
     {
         Scanner input = null;
         File inFile = new File(fileName);
-        try {
+        try
+        {
             input = new Scanner(inFile);
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e)
+        {
             e.printStackTrace();
             System.exit(-1);
         }

@@ -52,8 +52,7 @@ public class Main
             tree[parent].position = parent;
         }
 
-        var result = tree[root];
-        return result;
+        return tree[root];
     }
 
     static void printRec(Vector ptr, int comp)
@@ -67,8 +66,8 @@ public class Main
             return;
         }
 
-        printRec(ptr.getLeft(), currentComp.getComp().getParent());
-        printRec(ptr.getRight(), currentComp.getComp().getChild());
+        printRec(ptr.getLeft(), currentComp.getParentCase());
+        printRec(ptr.getRight(), currentComp.getChildCase());
     }
 
 }

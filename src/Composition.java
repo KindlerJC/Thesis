@@ -11,12 +11,6 @@ public class Composition
         this.child = child;
     }
 
-    public Composition(Composition original)
-    {
-        parent = original.parent;
-        child = original.child;
-    }
-
     public boolean equals(Composition other)
     {
         return parent == other.parent && child == other.child;

@@ -20,12 +20,18 @@ public class AdjacencyList
      */
     public AdjacencyList(String fileName)
     {
+        loadFromFile(fileName);
+
+    }
+
+    private void loadFromFile(String fileName)
+    {
         Scanner edgeFile = getScanner(fileName);
         size = edgeFile.nextInt();
         adjList = new LinkedList[size];
-        for (int i = 0; i < size; i++) {
+
+        for (int i = 0; i < size; i++)
             adjList[i] = new LinkedList<>();
-        }
 
         int a, b;
         while (edgeFile.hasNextInt())
@@ -36,9 +42,12 @@ public class AdjacencyList
         }
 
         edgeFile.close();
-
     }
 
+    /**
+     * Used for Testing AdjacencyLists built manually, rather than from files.
+     * @param size Length of array of Linkedlists.
+     */
     public AdjacencyList(int size)
     {
         this.size = size;
@@ -88,10 +97,11 @@ public class AdjacencyList
         queue.add(root);
 
         int parent, child;
+        Iterator<Integer> iter;
         while (!queue.isEmpty())
         {
             parent = queue.pollFirst();
-            var iter = getIterator(parent);
+            iter = getIterator(parent);
             while (iter.hasNext())
             {
                 child = iter.next();
@@ -117,17 +127,19 @@ public class AdjacencyList
         var queue = new LinkedList<Integer>();
         var visited = new boolean[size];
         var order = new int[size];
+        int i = size - 1;
 
         queue.add(root);
         visited[root] = true;
-        int i = size - 1;
         order[i--] = root;
+
         int current;
+        Iterator<Integer> iter;
 
         while (!queue.isEmpty())
         {
             current = queue.pollFirst();
-            var iter = getIterator(current);
+            iter = getIterator(current);
             while (iter.hasNext())
             {
                 current = iter.next();
@@ -137,7 +149,6 @@ public class AdjacencyList
                     order[i--] = current;
                     queue.addLast(current);
                 }
-
             }
         }
         return order;

@@ -3,7 +3,7 @@ public class VectorEntry
     public static final int BAD_CASE = -1;
 
     private int size;
-    private Composition entry;
+    private Composition composition;
 
     public VectorEntry(int size)
     {
@@ -13,7 +13,7 @@ public class VectorEntry
     public VectorEntry(int size, Composition entry)
     {
         this.size = size;
-        this.entry = entry;
+        this.composition = entry;
     }
 
     public int getSize()
@@ -23,11 +23,19 @@ public class VectorEntry
 
     public Composition getComp()
     {
-        return entry;
+        return composition;
+    }
+
+    public int getParentCase() {
+        return composition.getParent();
+    }
+
+    public int getChildCase() {
+        return composition.getChild();
     }
 
     public int getCompCase() {
-        return entry.getCase();
+        return composition.getCase();
     }
 
     @Override

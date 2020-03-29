@@ -8,13 +8,6 @@ public class Vector
     private Vector left;
     private Vector right;
     public int position;
-//    private static int[] initial;
-
-    public Vector(Vector left, Vector right)
-    {
-        this.left = left;
-        this.right = right;
-    }
 
     public Vector(VectorEntry[] list, Vector left, Vector right)
     {
