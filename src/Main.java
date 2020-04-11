@@ -32,7 +32,7 @@ public class Main
     public static Vector getFinalVector(int root)
     {
         Vector initialVector = wimerTable.getInitialVector();
-        tree = new Vector[adjList.getSize()]; // TODO: Add case label to each VectorEntry
+        tree = new Vector[adjList.getSize()];
         for (int i = 0; i < tree.length; i++)
             tree[i] = new Vector(initialVector, i);
 

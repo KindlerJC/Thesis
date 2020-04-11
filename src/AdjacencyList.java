@@ -21,9 +21,25 @@ public class AdjacencyList
     public AdjacencyList(String fileName)
     {
         loadFromFile(fileName);
-
     }
 
+    /**
+     * Used for Testing AdjacencyLists built manually, rather than from files.
+     * @param size Length of array of Linkedlists.
+     */
+    public AdjacencyList(int size)
+    {
+        this.size = size;
+        adjList = new LinkedList[size];
+        for (int i = 0; i < size; i++)
+            adjList[i] = new LinkedList<>();
+    }
+
+    /**
+     * Loads the adjacency list from the edgelist file
+     *
+     * @param fileName Name of the text file containing the edge list.
+     */
     private void loadFromFile(String fileName)
     {
         Scanner edgeFile = getScanner(fileName);
@@ -40,22 +56,15 @@ public class AdjacencyList
             b = edgeFile.nextInt();
             add(a, b);
         }
-
         edgeFile.close();
     }
 
     /**
-     * Used for Testing AdjacencyLists built manually, rather than from files.
-     * @param size Length of array of Linkedlists.
+     * Attempts to get a Scanner to read the edgelist text file
+     *
+     * @param fileName Name of text file with edge list
+     * @return Scanner for reading edgelist file
      */
-    public AdjacencyList(int size)
-    {
-        this.size = size;
-        adjList = new LinkedList[size];
-        for (int i = 0; i < size; i++)
-            adjList[i] = new LinkedList<>();
-    }
-
     private Scanner getScanner(String fileName)
     {
         File inFile = new File(fileName);
@@ -63,12 +72,20 @@ public class AdjacencyList
 
         try {
             edgeFile = new Scanner(inFile);
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
             System.exit(-1);
         }
         return edgeFile;
     }
+
+    /**
+     * Adds an edge to the AdjacencyList
+     *
+     * @param a Starting vertex of given edge
+     * @param b Destination vertex of given edge
+     */
 
     public void add(int a, int b)
     {
@@ -76,15 +93,38 @@ public class AdjacencyList
         adjList[b].addFirst(a);
     }
 
+    /**
+     * Gets an iterator through list of all vertices adjacent to index
+     *
+     * @param index Vertex that adjacency list pertains to
+     * @return Iterator through all vertices adjacent to vertex at index
+     */
+
     public Iterator<Integer> getIterator(int index)
     {
         return adjList[index].iterator();
     }
 
+    /**
+     * Gets the size of the graph
+     *
+     * @return Length of adjlist[] array, which equals the number of vertices in corresponding graph
+     */
+
     public int getSize()
     {
         return size;
     }
+
+    /**
+     * Represents the graph with int[] array of each vertex's parent
+     *
+     * i.e. For parent array parents[], and vertex i, parents[i] contains vertex number of i's parent
+     * Because the root has no parent, the root's parent is set to -1
+     *
+     * @param root The (arbitrarily chosen) root of the tree
+     * @return Parent array representation of the graph
+     */
 
     public int[] getParentArray(int root)
     {
@@ -98,6 +138,7 @@ public class AdjacencyList
 
         int parent, child;
         Iterator<Integer> iter;
+
         while (!queue.isEmpty())
         {
             parent = queue.pollFirst();
@@ -118,9 +159,13 @@ public class AdjacencyList
     }
 
     /**
+     * Determines the order of compositions.
+     * In the main method, this array is traversed in order.
+     *
+     * i.e. If order[0] is 4, then the first composition is 4's parent with 4
      * 
-     * @param root
-     * @return
+     * @param root Vertex to use as the root of the tree
+     * @return Order of compositions
      */
     public int[] getTraversalOrder(int root)
     {

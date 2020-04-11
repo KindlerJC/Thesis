@@ -13,19 +13,39 @@ public class WimerTable
     private int validClasses;
     private LinkedList<Composition>[] table;
 
+    /**
+     * Constructs the Wimer table. Calls loadFromFile to parse text in the filename file.
+     *
+     * @param fileName Name of text file that contains the table.
+     */
+
     public WimerTable(String fileName)
     {
+        loadFromFile(fileName);
+    }
+
+    /**
+     * Processes the file to generate the algorithm table.
+     *
+     * @param fileName Name of file that outlines the algorithm.
+     */
+
+    private void loadFromFile(String fileName)
+    {
         Scanner input = getScanner(fileName);
-        String max = input.nextLine(); //First line determines max or min
+        String max = input.next(); //First line determines max or min
         isMax = max.toLowerCase().contains("max");
+        input.nextLine();
 
         int classes = input.nextInt(); // Second line has number of classes
         input.nextLine();
         validClasses = input.nextInt(); // Third line has number of valid classes
         input.nextLine();
         var vectArr = new int[classes];
-        for (int i = 0; i < classes; i++)
+        for (int i = 0; i < classes; i++) {
             vectArr[i] = input.nextInt();
+        }
+        input.nextLine();
 
         initialVector = new Vector(vectArr);
         table = new LinkedList[classes];
@@ -48,9 +68,18 @@ public class WimerTable
                     row.add(comp);
                 }
             }
+            if (input.hasNextLine())
+                 input.nextLine();
         }
         input.close();
     }
+
+    /**
+     * Attempts to get a Scanner to read the text file outlining the tabular algorithm.
+     *
+     * @param fileName Name of text file with the algorithm.
+     * @return Scanner to read the text file with the algorithm table.
+     */
 
     private Scanner getScanner(String fileName)
     {
@@ -67,10 +96,26 @@ public class WimerTable
         return input;
     }
 
+    /**
+     * Accessor for the initial vector, which is specified in the input file.
+     *
+     * @return the initial vector.
+     */
+
     public Vector getInitialVector()
     {
         return initialVector;
     }
+
+    /**
+     * Composes two vectors and returns the result.
+     * Uses Wimer's method with the table to determine results.
+     * The returned vector keeps references to its parent and child vectors, used to determine the final set.
+     *
+     * @param parent The parent to be composed
+     * @param child The child to be composed
+     * @return The composition of the parent with the child, which replaces the parent in the tree.
+     */
 
     public Vector compose(Vector parent, Vector child)
     {
@@ -78,11 +123,11 @@ public class WimerTable
         var parentList = parent.getList();
         var childList = child.getList();
         var newList = new VectorEntry[parentList.length];
-        Iterator<Composition> iter;
+
         int bestTotal, parentSize, childSize, totalSize = 0;
-        Composition into;
-        Composition bestComp = null;
         int parentCase, childCase;
+        Iterator<Composition> iter;
+        Composition into, bestComp = null;
 
         for (int i = 0; i < parentList.length; i++) // i = case #, index in vectorList
         {
@@ -111,23 +156,30 @@ public class WimerTable
 
             }
 
-            bestTotal = bestTotal == Integer.MAX_VALUE || bestTotal == Integer.MIN_VALUE ? -1 : bestTotal;
+            bestTotal = bestTotal == Integer.MAX_VALUE || bestTotal == Integer.MIN_VALUE ? BAD_CASE : bestTotal;
             newList[i] = new VectorEntry(bestTotal, bestComp);
 
         }
         return new Vector(newList, parent, child);
     }
 
-    public Iterator<Composition> getIterator(int index)
-    {
-        return table[index].iterator();
-    }
-
+    /**
+     * Whether the algorithm should seek the largest or smallest possible final set.
+     *
+     * @return True if largest, false if smallest.
+     */
     public boolean isMax()
     {
         return isMax;
     }
 
+    /**
+     * Get number of valid classes for the final root vector
+     *
+     * i.e. If there are 5 classes and 2 valid classes, 0 and 1 are valid, while 2-4 are not.
+     *
+     * @return Number of valid final classes
+     */
     public int getValidClasses()
     {
         return validClasses;

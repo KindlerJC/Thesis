@@ -1,8 +1,8 @@
-min
-3
-2
-1 -1 0
+min    # minimum or maximum set
+3      # number of classes
+2      # number of valid classes
+1 -1 0 # initial vector
 
-0 0 0
-1 1 -1
-1 2 -1
+0 0 0  # parent case 0
+1 1 -1 # parent case 1
+1 2 -1 # parent case 2
