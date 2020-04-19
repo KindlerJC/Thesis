@@ -9,7 +9,7 @@ class MainTest
         String[] files = new String[]{"tests/edgelist1", "tests/mindomset.txt"};
 
         Vector result;
-        Main.makeTables(files);
+        Main.initFields(files);
         WimerTable wimerTable = Main.wimerTable;
         boolean isMax = wimerTable.isMax();
         int validClasses = wimerTable.getValidClasses();
@@ -32,7 +32,22 @@ class MainTest
     {
         String[] files = new String[]{"tests/edgelist1", "tests/minimalDomSet"};
         Main.main(files);
+    }
 
+    @Test
+    void openIrredundant()
+    {
+        String[] files = new String[]{"tests/edgelist1", "tests/minOpenIrr.txt"};
+        Vector result;
+        Main.initFields(files);
+        WimerTable wimerTable = Main.wimerTable;
+        boolean isMax = wimerTable.isMax();
+        int validClasses = wimerTable.getValidClasses();
+
+        result = Main.getFinalVector(0);
+        System.out.println(result);
+        System.out.println(result.getBest(isMax,validClasses));
+        Main.printRec(result, result.getBest(isMax,validClasses).getCompCase());
     }
 
 }

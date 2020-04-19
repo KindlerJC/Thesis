@@ -27,9 +27,13 @@ class WimerTableTest
     }
 
 
-    void compareCompositions(int parent, int child, Composition comp)
+    @Test
+    void testBigTable()
     {
-        assertTrue(parent == comp.getParent() && child == comp.getChild());
+        wimerTable = new WimerTable("tests/minOpenIrr.txt");
+        var init = wimerTable.getInitialVector();
+//        System.out.println(init);
+
     }
 
 

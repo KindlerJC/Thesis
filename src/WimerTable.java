@@ -10,6 +10,7 @@ public class WimerTable
     private Vector initialVector;
 
     private boolean isMax;
+    protected int classes;
     private int validClasses;
     private LinkedList<Composition>[] table;
 
@@ -30,16 +31,16 @@ public class WimerTable
      * @param fileName Name of file that outlines the algorithm.
      */
 
-    private void loadFromFile(String fileName)
+    protected void loadFromFile(String fileName)
     {
         Scanner input = getScanner(fileName);
         String max = input.next(); //First line determines max or min
         isMax = max.toLowerCase().contains("max");
         input.nextLine();
 
-        int classes = input.nextInt(); // Second line has number of classes
+        classes = input.nextInt(); // Second line has number of classes
         input.nextLine();
-        validClasses = input.nextInt(); // Third line has number of valid classes
+        validClasses = input.nextInt();
         input.nextLine();
         var vectArr = new int[classes];
         for (int i = 0; i < classes; i++) {
