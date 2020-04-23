@@ -49,52 +49,11 @@ public class Vector
         return list[index];
     }
 
-    public VectorEntry getBest(boolean isMax, int validClasses)
-    {
-        VectorEntry current, best = null;
-        int bestSize = isMax ? Integer.MIN_VALUE : Integer.MAX_VALUE;
-        int currentSize;
-        for (int i = 0; i < validClasses; i++)
-        {
-            current = list[i];
-            currentSize = current.getSize();
-            if (best == null || ((isMax && currentSize > bestSize) || (!isMax && currentSize < bestSize) && currentSize != BAD_COMP))
-            {
-                best = current;
-                bestSize = currentSize;
-            }
-        }
-
-        return best;
-    }
-
-    public VectorEntry getBest(boolean isMax, boolean[] validClasses)
-    {
-        VectorEntry current, best = null;
-        int bestSize = isMax ? Integer.MIN_VALUE : Integer.MAX_VALUE;
-        int currentSize;
-        for (int i = 0; i < list.length; i++)
-        {
-            if (!validClasses[i])
-                continue;
-            current = list[i];
-            currentSize = current.getSize();
-            if (best == null || ((isMax && currentSize > bestSize) || (!isMax && currentSize < bestSize) && currentSize != BAD_COMP))
-            {
-                best = current;
-                bestSize = currentSize;
-            }
-        }
-
-        return best;
-    }
-
     @Override
     public String toString()
     {
         return position + ": " + Arrays.toString(list);
     }
-
 
 
 }

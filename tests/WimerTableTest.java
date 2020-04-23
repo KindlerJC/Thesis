@@ -12,7 +12,7 @@ class WimerTableTest
     @BeforeEach
     void setUp()
     {
-        wimerTable = new WimerTable(fileName);
+        wimerTable = new WimerTable(fileName, false);
     }
 
     @Test
@@ -30,7 +30,7 @@ class WimerTableTest
     @Test
     void testBigTable()
     {
-        wimerTable = new WimerTable("tests/minOpenIrr.txt");
+        wimerTable = new WimerTable("tests/minOpenIrr.txt", false);
         var init = wimerTable.getInitialVector();
 //        System.out.println(init);
 

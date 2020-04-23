@@ -4,37 +4,71 @@ public class Main
     public static AdjacencyList adjList;
     public static WimerTable wimerTable;
 
-    static boolean isMax;
-    static int validClasses;
     static Vector initialVector;
 
     public static void main(String[] args)
     {
-        initFields(args);
-        var finalVector = getFinalVector(0);
-        var bestEntry = finalVector.getBest(isMax, validClasses);
-        System.out.println("Set size: " + bestEntry.getSize());
-        printRec(finalVector, bestEntry.getComp().getCase());
-
 
     }
 
-    public static void initFields(String[] args)
+    public static void run(String[] args, boolean listFormat)
+    {
+        initFields(args, listFormat);
+        var finalVector = getFinalVector(0);
+        var bestEntry = listFormat? wimerTable.getBestEntryList(finalVector) : wimerTable.getBestEntry(finalVector);
+        System.out.println("Set size: " + bestEntry.getSize());
+        printRec(finalVector, bestEntry.getComp().getCase());
+    }
+
+    public static void runRandomRoot(String[] args, boolean listFormat)
+    {
+        initFields(args, listFormat);
+        int root = (int) (Math.random() * adjList.getSize());
+        System.out.println("Randomly selected root: " + root);
+        var finalVector = getFinalVector(root);
+        var bestEntry = listFormat? wimerTable.getBestEntryList(finalVector) : wimerTable.getBestEntry(finalVector);
+        System.out.println("Set size: " + bestEntry.getSize());
+        printRec(finalVector, bestEntry.getComp().getCase());
+    }
+
+    public static void runAllRoots(String[] args, boolean listFormat)
+    {
+        initFields(args, listFormat);
+        Vector finalVector;
+        VectorEntry bestEntry;
+
+        finalVector = getFinalVector(0);
+        bestEntry = wimerTable.getBestEntry(finalVector);
+        int currentSize, rightSize = bestEntry.getSize();
+        int iter = adjList.getSize();
+        System.out.printf("Set size when root = 0 : %d\n", rightSize);
+        for (int i = 1; i < iter; i++)
+        {
+            initFields(args, listFormat);
+            finalVector = getFinalVector(i);
+            currentSize = listFormat? wimerTable.getBestEntryList(finalVector).getSize() : wimerTable.getBestEntry(finalVector).getSize();
+            if (currentSize != rightSize)
+            {
+                System.out.printf("Expected size of %d but got %d when root was %d\n", rightSize, currentSize, i);
+                System.exit(-1);
+            }
+
+        }
+        System.out.println("Congratulations! Result set is the same size regardless of root position.");
+
+    }
+    public static void initFields(String[] args, boolean isList)
     {
         adjList = new AdjacencyList(args[0]);
-        wimerTable = new WimerTable(args[1]);
-        isMax = wimerTable.isMax();
-        validClasses = wimerTable.getValidClasses();
+        wimerTable = new WimerTable(args[1], isList);
         initialVector = wimerTable.getInitialVector();
+        tree = new Vector[adjList.getSize()];
+        for (int i = 0; i < tree.length; i++)
+            tree[i] = new Vector(initialVector, i);
     }
 
     public static Vector getFinalVector(int root)
     {
-        Vector initialVector = wimerTable.getInitialVector();
-        tree = new Vector[adjList.getSize()];
-        for (int i = 0; i < tree.length; i++)
-            tree[i] = new Vector(initialVector, i);
-
         var parents = adjList.getParentArray(root);
         var order = adjList.getTraversalOrder(root);
 

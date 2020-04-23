@@ -12,6 +12,7 @@ public class WimerTable
     private boolean isMax;
     protected int classes;
     private int validClasses;
+    private boolean[] validList;
     private LinkedList<Composition>[] table;
 
     /**
@@ -20,9 +21,9 @@ public class WimerTable
      * @param fileName Name of text file that contains the table.
      */
 
-    public WimerTable(String fileName)
+    public WimerTable(String fileName, boolean isList)
     {
-        loadFromFile(fileName);
+        loadFromFile(fileName, isList);
     }
 
     /**
@@ -31,7 +32,7 @@ public class WimerTable
      * @param fileName Name of file that outlines the algorithm.
      */
 
-    protected void loadFromFile(String fileName)
+    protected void loadFromFile(String fileName, boolean isList)
     {
         Scanner input = getScanner(fileName);
         String max = input.next(); //First line determines max or min
@@ -42,6 +43,15 @@ public class WimerTable
         input.nextLine();
         validClasses = input.nextInt();
         input.nextLine();
+
+        if (isList)
+        {
+            validList = new boolean[classes];
+            for (int i = 0; i < validClasses; i++)
+                validList[input.nextInt()] = true;
+            input.nextLine();
+        }
+
         var vectArr = new int[classes];
         for (int i = 0; i < classes; i++) {
             vectArr[i] = input.nextInt();
@@ -73,6 +83,51 @@ public class WimerTable
                  input.nextLine();
         }
         input.close();
+    }
+
+    public VectorEntry getBestEntry(Vector vector)
+    {
+        VectorEntry current, best = null;
+        int bestSize = isMax ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+        int currentSize;
+        var list = vector.getList();
+        for (int i = 0; i < validClasses; i++)
+        {
+            current = list[i];
+            currentSize = current.getSize();
+            if (best == null || ((isMax && currentSize > bestSize) || (!isMax && currentSize < bestSize) && currentSize != Vector.BAD_COMP))
+            {
+                best = current;
+                bestSize = currentSize;
+            }
+        }
+        return best;
+
+    }
+
+    public VectorEntry getBestEntryList(Vector vector)
+    {
+        VectorEntry current, best = null;
+        int bestSize = isMax ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+        int currentSize;
+        var list = vector.getList();
+
+        for (int i = 0; i < list.length; i++)
+        {
+            current = list[i];
+            currentSize = current.getSize();
+            if (!validList[i] || currentSize == BAD_CASE)
+            {
+                continue;
+            }
+
+            if (best == null || ( (isMax && currentSize > bestSize) || (!isMax && currentSize < bestSize)))
+            {
+                best = current;
+                bestSize = currentSize;
+            }
+        }
+        return best;
     }
 
     /**
@@ -185,5 +240,7 @@ public class WimerTable
     {
         return validClasses;
     }
+
+    public boolean[] getValidList() {return validList;}
 
 }

@@ -2,52 +2,28 @@ import org.junit.jupiter.api.Test;
 
 class MainTest
 {
-    static Vector initialVector;
+    String path = "tests/text/";
     @Test
     void run()
     {
-        String[] files = new String[]{"tests/edgelist1", "tests/mindomset.txt"};
+        String[] files = new String[]{path + "edgelist1", path + "mindomset.txt"};
 
-        Vector result;
-        Main.initFields(files);
-        WimerTable wimerTable = Main.wimerTable;
-        boolean isMax = wimerTable.isMax();
-        int validClasses = wimerTable.getValidClasses();
-
-        for (int i = 0; i < 7; i++) {
-            result = Main.getFinalVector(i);
-            assert result.getBest(isMax, validClasses).getSize() == 2;
-        }
-    }
-        @Test
-    void runOnce()
-    {
-        String[] files = new String[] {"tests/edgelist1", "tests/mindomset.txt"};
-        Main.main(files);
-
+        Main.runRandomRoot(files, false);
     }
 
     @Test
-    void minimal()
+    void sandbox()
     {
-        String[] files = new String[]{"tests/edgelist1", "tests/minimalDomSet"};
-        Main.main(files);
+        String[] files = new String[]{path + "randomList.txt", path + "mindomset.txt"};
+        Main.runAllRoots(files, false);
     }
 
     @Test
     void openIrredundant()
     {
-        String[] files = new String[]{"tests/edgelist1", "tests/minOpenIrr.txt"};
-        Vector result;
-        Main.initFields(files);
-        WimerTable wimerTable = Main.wimerTable;
-        boolean isMax = wimerTable.isMax();
-        int validClasses = wimerTable.getValidClasses();
+        String[] files = new String[]{path + "edgelist1", path + "minOpenIrr.txt"};
 
-        result = Main.getFinalVector(0);
-        System.out.println(result);
-        System.out.println(result.getBest(isMax,validClasses));
-        Main.printRec(result, result.getBest(isMax,validClasses).getCompCase());
+        Main.run(files, true);
     }
 
 }
