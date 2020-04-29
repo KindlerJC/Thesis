@@ -1,0 +1,10 @@
+max   # minimum or maximum set
+5      # number of classes
+3      # number of valid classes
+0 -1 -1 1 -1 # initial vector
+
+4	0	4	1	-1
+1	1	1	-1	-1
+-1	2	2	-1	-1
+1	3	3	-1	2
+4	4	4	1	-1

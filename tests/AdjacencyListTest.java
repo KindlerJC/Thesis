@@ -10,7 +10,7 @@ class AdjacencyListTest
 
     private static AdjacencyList al;
     static Iterator<Integer> iter;
-    private final String fileName = "tests/text/edgelist1";
+    private final String fileName = "tests/text/edgelist1.txt";
 
     @BeforeEach
     void setUp()

@@ -1,6 +1,7 @@
 public class Main
 {
     private static Vector[] tree;
+    private static boolean[] finalSet;
     public static AdjacencyList adjList;
     public static WimerTable wimerTable;
 
@@ -8,7 +9,6 @@ public class Main
 
     public static void main(String[] args)
     {
-
     }
 
     public static void run(String[] args, boolean listFormat)
@@ -17,7 +17,10 @@ public class Main
         var finalVector = getFinalVector(0);
         var bestEntry = listFormat? wimerTable.getBestEntryList(finalVector) : wimerTable.getBestEntry(finalVector);
         System.out.println("Set size: " + bestEntry.getSize());
-        printRec(finalVector, bestEntry.getComp().getCase());
+        findSet(finalVector, bestEntry.getComp().getCase());
+        for (int i = 0; i < finalSet.length; i++)
+            if (finalSet[i])
+                System.out.printf("%d is in the set\n", i);
     }
 
     public static void runRandomRoot(String[] args, boolean listFormat)
@@ -28,35 +31,26 @@ public class Main
         var finalVector = getFinalVector(root);
         var bestEntry = listFormat? wimerTable.getBestEntryList(finalVector) : wimerTable.getBestEntry(finalVector);
         System.out.println("Set size: " + bestEntry.getSize());
-        printRec(finalVector, bestEntry.getComp().getCase());
+        findSet(finalVector, bestEntry.getComp().getCase());
+        for (int i = 0; i < finalSet.length; i++)
+            if (finalSet[i])
+                System.out.printf("%d is in the set\n", i);
     }
 
-    public static void runAllRoots(String[] args, boolean listFormat)
+    public static void runRoot(String[] args, boolean listFormat, int root)
     {
+        System.out.println("Root: " + root);
         initFields(args, listFormat);
-        Vector finalVector;
-        VectorEntry bestEntry;
-
-        finalVector = getFinalVector(0);
-        bestEntry = wimerTable.getBestEntry(finalVector);
-        int currentSize, rightSize = bestEntry.getSize();
-        int iter = adjList.getSize();
-        System.out.printf("Set size when root = 0 : %d\n", rightSize);
-        for (int i = 1; i < iter; i++)
-        {
-            initFields(args, listFormat);
-            finalVector = getFinalVector(i);
-            currentSize = listFormat? wimerTable.getBestEntryList(finalVector).getSize() : wimerTable.getBestEntry(finalVector).getSize();
-            if (currentSize != rightSize)
-            {
-                System.out.printf("Expected size of %d but got %d when root was %d\n", rightSize, currentSize, i);
-                System.exit(-1);
-            }
-
-        }
-        System.out.println("Congratulations! Result set is the same size regardless of root position.");
-
+        var finalVector = getFinalVector(root);
+        var bestEntry = listFormat ? wimerTable.getBestEntryList(finalVector) : wimerTable.getBestEntry(finalVector);
+        System.out.println("Set size: " + bestEntry.getSize());
+        findSet(finalVector, bestEntry.getComp().getCase());
+        for (int i = 0; i < finalSet.length; i++)
+            if (finalSet[i])
+                System.out.printf("%d is in the set\n", i);
     }
+
+
     public static void initFields(String[] args, boolean isList)
     {
         adjList = new AdjacencyList(args[0]);
@@ -65,6 +59,7 @@ public class Main
         tree = new Vector[adjList.getSize()];
         for (int i = 0; i < tree.length; i++)
             tree[i] = new Vector(initialVector, i);
+        finalSet = new boolean[adjList.getSize()];
     }
 
     public static Vector getFinalVector(int root)
@@ -88,19 +83,19 @@ public class Main
         return tree[root];
     }
 
-    static void printRec(Vector ptr, int comp)
+    static void findSet(Vector ptr, int comp)
     {
         var currentComp = ptr.entryAt(comp);
         if (ptr.getLeft() == null)  // If the vector has no left component it has no right component either
         {
             var size = initialVector.entryAt(comp).getSize();
             if (size == 1)
-                System.out.println(ptr.position + " is in the set");
+                finalSet[ptr.position] = true;
             return;
         }
 
-        printRec(ptr.getLeft(), currentComp.getParentCase());
-        printRec(ptr.getRight(), currentComp.getChildCase());
+        findSet(ptr.getLeft(), currentComp.getParentCase());
+        findSet(ptr.getRight(), currentComp.getChildCase());
     }
 
 }

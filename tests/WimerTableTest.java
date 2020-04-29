@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class WimerTableTest
 {
     private static WimerTable wimerTable;
-    private static String fileName = "tests/mindomset.txt";
+    private static String fileName = "tests/indyDomSet.txt";
     @BeforeEach
     void setUp()
     {
@@ -30,7 +30,7 @@ class WimerTableTest
     @Test
     void testBigTable()
     {
-        wimerTable = new WimerTable("tests/minOpenIrr.txt", false);
+        wimerTable = new WimerTable("tests/maxIrr.txt", false);
         var init = wimerTable.getInitialVector();
 //        System.out.println(init);
 
