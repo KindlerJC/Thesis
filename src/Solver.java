@@ -5,7 +5,7 @@ public class Solver
     public AdjacencyList adjList;
     public WimerTable wimerTable;
 
-    static Vector initialVector;
+    private Vector initialVector;
 
     public Solver(String edgeFile, String tableFile, boolean isList)
     {
@@ -25,11 +25,22 @@ public class Solver
 
     public void runRoot(boolean listFormat, int root)
     {
-        System.out.println("Root: " + root);
         var finalVector = getFinalVector(root);
         var bestEntry = listFormat ? wimerTable.getBestEntryList(finalVector) : wimerTable.getBestEntry(finalVector);
+        int setSize = bestEntry.getSize();
+        System.out.println("Root: " + root);
+        if (setSize == -1)
+        {
+            System.out.println("No valid set returned.");
+            return;
+        }
         System.out.println("Set size: " + bestEntry.getSize());
         findSet(finalVector, bestEntry.getComp().getCase());
+        printSet();
+    }
+
+    private void printSet()
+    {
         for (int i = 0; i < finalSet.length; i++)
             if (finalSet[i])
                 System.out.printf("%d is in the set\n", i);

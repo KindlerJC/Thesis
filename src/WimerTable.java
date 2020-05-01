@@ -95,7 +95,7 @@ public class WimerTable
         {
             current = list[i];
             currentSize = current.getSize();
-            if (best == null || ((isMax && currentSize > bestSize) || (!isMax && currentSize < bestSize) && currentSize != Vector.BAD_COMP))
+            if (best == null || ((isMax && currentSize > bestSize) || ((!isMax && currentSize < bestSize) && currentSize != Vector.BAD_COMP)))
             {
                 best = current;
                 bestSize = currentSize;
