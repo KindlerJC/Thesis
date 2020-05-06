@@ -2,6 +2,8 @@ public class Main
 {
     public static void main(String[] args)
     {
+        if (args.length == 0)
+            usage();
         String edgeFile = "", tableFile = "";
         boolean listFormat = false;
         boolean random = false;
@@ -38,6 +40,7 @@ public class Main
         if (random)
             root = (int)(Math.random() * slv.adjList.getSize());
         slv.runRoot(listFormat, root);
+        slv.printSet();
 
     }
 

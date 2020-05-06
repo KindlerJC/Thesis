@@ -24,11 +24,10 @@ class SolverTest
     @Test
     void run()
     {
-        for (int i = 0; i < 200; i++)
-        {
-            slv = new Solver(eRand, ioir, false);
-            slv.runRoot(false, i);
-        }
+        slv = new Solver(e2, ioir, false);
+        slv.run(false);
+        slv.printSet();
+
     }
 
     @Test
@@ -36,6 +35,16 @@ class SolverTest
     {
         slv = new Solver(e2, PATH + "oneMaxNearlyPerfect.txt", false);
         slv.run(false);
+    }
+
+    @Test
+    void runLots()
+    {
+        for (int i = 0; i < 200; i++)
+        {
+            slv = new Solver(eRand, ioir, false);
+            slv.runRoot(false, i);
+        }
     }
     
 }

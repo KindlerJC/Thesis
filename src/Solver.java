@@ -36,10 +36,9 @@ public class Solver
         }
         System.out.println("Set size: " + bestEntry.getSize());
         findSet(finalVector, bestEntry.getComp().getCase());
-        printSet();
     }
 
-    private void printSet()
+    public void printSet()
     {
         for (int i = 0; i < finalSet.length; i++)
             if (finalSet[i])
